@@ -2,8 +2,7 @@ const { logChannel } = require('../config.json');
 
 module.exports = {
     name: 'guildMemberAdd',
-    once: false,
-    execute(client, guildMember) {
+    execute(guildMember) {
         console.log(guildMember);
     },
 };
