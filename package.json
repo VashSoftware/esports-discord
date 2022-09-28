@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "deploy": "node ./functions/deployCommands.js"
   },
   "dependencies": {
     "@discordjs/rest": "^1.1.0",

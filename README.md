@@ -26,11 +26,21 @@ npm install
 {
 	"token": "",
 	"osu_client_id": "",
-	"osu_client_secret": ""
+	"osu_client_secret": "",
+	"clientId": "",
+	"guildId": "",
+	"memberCountChannelId": "",
+	"logChannel": ""
 }
 ```
 
-3. Run your app in development mod
+3. Deploy application commands to your guildId
+
+```bash
+npm run deploy
+```
+
+4. Run your app in development mode
 
 ```bash
 npm run dev
