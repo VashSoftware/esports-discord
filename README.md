@@ -25,8 +25,8 @@ npm install
 ```json
 {
 	"token": "",
-	"osu_client_id": "",
-	"osu_client_secret": "",
+	"osuClientId": "",
+	"osuClientSecret": "",
 	"clientId": "",
 	"guildId": "",
 	"memberCountChannelId": "",
