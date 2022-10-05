@@ -1,10 +1,11 @@
-const { v2, auth } = require('osu-api-extended');
+const { v2, auth } = require("osu-api-extended");
+const { osuClientId, osuClientSecret } = require("../config.json");
 
 const main = async () => {
-    await auth.login('16151', 'nKyx4GBd0ZlcAMmzalq48AcFOklzLa7DKgQh81W4');
+	await auth.login(osuClientId, osuClientSecret);
 
-    const user = await v2.user.details(11212255, 'osu');
-    console.log(user);
-}
+	const user = await v2.user.details(11212255, "osu");
+	console.log(user);
+};
 
 module.exports = main;
