@@ -5,3 +5,6 @@ keyfile.json
 
 # Dependencies
 node_modules
+
+# Developer files
+.idea
