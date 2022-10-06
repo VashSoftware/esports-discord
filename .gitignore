@@ -1,2 +1,7 @@
+# Config files
 config.json
+config-prod.json
+keyfile.json
+
+# Dependencies
 node_modules
