@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
 	name: 'deployCommands',
 	description: 'Deploy slash commands',
@@ -5,7 +7,6 @@ module.exports = {
 		const fs = require('fs');
 		const path = require('path');
 		const { REST, Routes, SlashCommandBuilder, ModalBuilder } = require('discord.js');
-		const { clientId, guildId, token } = require('../config.json');
 
 		const commands = [];
 		const commandsPath = path.join(__dirname, '../commands');
@@ -17,9 +18,9 @@ module.exports = {
 			commands.push(command.data.toJSON());
 		}
 
-		const rest = new REST({ version: '10' }).setToken(token);
+		const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
-		rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+		rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), { body: commands })
 			.then(data => console.log(`Successfully registered ${data.length} application commands.`))
 			.catch(console.error);
 	},
