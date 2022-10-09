@@ -1,6 +1,6 @@
+require("dotenv").config();
 const { SlashCommandBuilder } = require('discord.js');
 const challonge = require('challonge');
-const { challongeApiKey, subdomain } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,8 +13,8 @@ module.exports = {
 	async execute(interaction) {
 		
 		const challongeClient = challonge.createClient({
-			apiKey: challongeApiKey,
-			subdomain: subdomain
+			apiKey: process.env.CHALLONGE_API_KEY,
+			subdomain: process.env.CHALLONGE_SUBDOMAIN
 		});
 		
 		const tournamentId = interaction.options.getString('tournamentid');

@@ -1,7 +1,7 @@
-const { ircPassword } = require('../config.json');
+require("dotenv").config();
 
 const Banchojs = require("bancho.js");
-const client = new Banchojs.BanchoClient({ username: "Stan", password: ircPassword });
+const client = new Banchojs.BanchoClient({ username: "Stan", password: process.env.OSU_IRC_PASSWORD });
 
 client.connect().then(() => {
     console.log("We're online! Now listening for incoming messages.");

@@ -1,4 +1,4 @@
-const {googleApiKey} = require('../config.json');
+require("dotenv").config();
 
 const {google} = require('googleapis');
 const auth = new google.auth.GoogleAuth({
