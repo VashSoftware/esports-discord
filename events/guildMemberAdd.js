@@ -1,10 +1,12 @@
-const { logChannel } = require('../config.json');
+require("dotenv").config();
 const updateMemberCountChannel = require('../functions/updateMemberCountChannel');
 
 module.exports = {
     name: 'guildMemberAdd',
     execute(guildMember, client) {
-        let logChannel = guildMember.guild.channels.cache.find(channel => channel.name === 'logs');
+        console.log(`${guildMember.user.username} joined server: ${guildMember.guild.name}`);
+        
+        let logChannel = client.channels.cache.find(channel => channel.id == process.env.DISCORD_LOG_CHANNEL_ID);
 
         logChannel.send(`
         New member: ${guildMember}

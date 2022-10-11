@@ -1,10 +1,12 @@
-const { logChannel } = require('../config.json');
+require("dotenv").config();
 const updateMemberCountChannel = require('../functions/updateMemberCountChannel');
 
 module.exports = {
     name: 'guildMemberRemove',
     execute(guildMember, client) {
-        let logChannel = guildMember.guild.channels.cache.find(channel => channel.name === 'logs');
+        console.log(`${guildMember.user.username} left server: ${guildMember.guild.name}`);
+        
+        let logChannel = client.channels.cache.find(channel => channel.id == process.env.DISCORD_LOG_CHANNEL_ID);
 
         logChannel.send(`
         Member left: ${guildMember}
