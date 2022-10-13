@@ -7,5 +7,9 @@ keyfile.json
 # Dependencies
 node_modules
 
+# Target
+target
+
 # Developer files
 .idea
+.vscode
