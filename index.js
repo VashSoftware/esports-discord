@@ -10,11 +10,14 @@ const discordClient = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessageReactions,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildBans,
+    GatewayIntentBits.GuildScheduledEvents,
   ],
 });
 
