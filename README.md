@@ -1,17 +1,41 @@
-# discord-bot
+# Cesar Discord bot for the CES Gaming Discord server
 
-CES Discord bot for the CES Discord server
+## TODO:
 
-TODO:
-
--   Count channel auto-moderation
+-   ~~Count channel auto-moderation~~
+-   ~~Member count channel~~
 -   Logs
     -   member join/leave
     -   member kick
     -   member ban/unban
-    -
+-   Role memory and auto-assign
+-   Commands
+    -   Announce stream
+    -   ~~BWS calculator~~
+    -   Moderation
+        -   Kick
+        -   Ban
+        -   Tempban
+        -   Timeout
+        -   Warn
+        -   Clean
+        -   Slowmode
+    -   Referee tools
+    -   Challonge API
+    -   Google API
+    -   Bancho API
+    -   osu! API
+-   Music
+-   Auto-provision voice channels
+-   Ticket system
+-   Verification system
+-   Role commands
+-   Automod
+-   YouTube auto-announce
+-   Embeds
 
-# Development
+
+## Development
 
 1. Clone the repo, install the dependencies
 
@@ -20,19 +44,7 @@ git clone https://github.com/Competetive-Electronic-Sports/ces-discord-bot.git
 npm install
 ```
 
-2. Create a `config.json` and fill the following properties
-
-```json
-{
-	"token": "",
-	"osuClientId": "",
-	"osuClientSecret": "",
-	"clientId": "",
-	"guildId": "",
-	"memberCountChannelId": "",
-	"logChannel": ""
-}
-```
+2. Rename `example.env` to `.env` and fill out the properties.
 
 3. Deploy application commands to your guildId
 
