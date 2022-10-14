@@ -10,7 +10,7 @@ module.exports = {
 
         // Log message to database
         const {connection} = require('../index.js');
-        const sql = `INSERT INTO message (id, author_discord_id, guild_id, channel_id, content) VALUES ('${message.id}', '${message.author.id}', '${message.guild.id}', '${message.channel.id}', '${message.content}')`;
+        const sql = `INSERT INTO discord_message (id, author_discord_id, guild_id, channel_id, content) VALUES ('${message.id}', '${message.author.id}', '${message.guild.id}', '${message.channel.id}', '${message.content}')`;
         connection.query(sql, function (error, results, fields) {
             if (error) throw error;
         });
