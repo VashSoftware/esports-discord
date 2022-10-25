@@ -3,7 +3,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
-const deployCommands = require("./functions/deployCommands.js");
+const deployCommands = require("../functions/deployCommands.js");
 
 // Create a new discordClient instance
 const discordClient = new Client({
