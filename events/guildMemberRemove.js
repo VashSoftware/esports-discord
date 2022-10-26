@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { EmbedBuilder } = require("discord.js");
 const updateMemberCountChannel = require('../functions/updateMemberCountChannel');
 
 module.exports = {
@@ -6,15 +7,21 @@ module.exports = {
     execute(guildMember, client) {
         console.log(`${guildMember.user.username} left server: ${guildMember.guild.name}`);
         
-        let logChannel = client.channels.cache.find(channel => channel.id == process.env.DISCORD_LOG_CHANNEL_ID);
+        let logChannel = client.channels.cache.get(process.env.DISCORD_LOG_CHANNEL_ID);
 
-        logChannel.send(`
-        Member left: ${guildMember}
-        Username: ${guildMember.user.username}
-        ID: ${guildMember.user.id}
-        Account created: ${guildMember.user.createdAt}
-        Joined server: ${guildMember.joinedAt}
-        Member count: ${guildMember.guild.memberCount}`);
+        const embed = new EmbedBuilder()
+            .setTitle('Member Left')
+            .setColor(0xFF0000)
+            .setThumbnail(guildMember.user.avatarURL())
+            .addFields(
+                { name: 'User', value: guildMember.user.username },
+                { name: 'User ID', value: guildMember.user.id },
+                { name: 'Joined At', value: guildMember.joinedAt.toUTCString() },
+                { name: 'Account Created At', value: guildMember.user.createdAt.toUTCString() },
+                { name: 'Member Count', value: guildMember.guild.memberCount.toString() }
+            )
+            .setTimestamp();
+        logChannel.send({ embeds: [embed] });
 
         updateMemberCountChannel.execute(client);
     },

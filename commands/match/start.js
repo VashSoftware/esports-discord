@@ -11,7 +11,6 @@ module.exports = {
     .addNumberOption(option => option.setName('matchid').setDescription('The match ID').setRequired(true)),
 
     async execute(interaction) {
-        const discordClient = interaction.client;
         const matchId = interaction.options.getNumber('matchid');
 
         const matchDiscordChannel =  await interaction.guild.channels.create({
@@ -66,7 +65,7 @@ module.exports = {
             await matchLobby.setPassword("test");
             await matchLobby.invitePlayer(interaction.member.displayName);
 
-            discordClient.on("messageCreate", async (message) => {
+            interaction.client.on("messageCreate", async (message) => {
                 if(message.channel.id !== matchDiscordChannel.id) {
                     return;
                 }

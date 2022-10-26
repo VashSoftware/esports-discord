@@ -11,8 +11,8 @@ module.exports = {
         if (!command) return;
     
         try {
-            await command.execute(interaction);
             console.log(`${interaction.user.username} (${interaction.guild.name}) executed a command: ${interaction.commandName}`);
+            await command.execute(interaction);
         } catch (error) {
             console.error(error);
             await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
