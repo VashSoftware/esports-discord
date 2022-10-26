@@ -24,7 +24,7 @@ module.exports = {
     const fs = require("fs");
 
     const matchCommands = fs
-      .readdirSync("./commands/qualifier")
+      .readdirSync("./src/commands/qualifier")
       .filter((file) => file.endsWith(".js"));
 
     for (const file of matchCommands) {

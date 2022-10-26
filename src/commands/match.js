@@ -21,7 +21,7 @@ module.exports = {
     const fs = require("fs");
 
     const matchCommands = fs
-      .readdirSync("./commands/match")
+      .readdirSync("./src/commands/match")
       .filter((file) => file.endsWith(".js"));
 
     for (const file of matchCommands) {
