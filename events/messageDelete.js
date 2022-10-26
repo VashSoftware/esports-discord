@@ -2,17 +2,23 @@ require("dotenv").config();
 
 module.exports = {
     name: 'messageDelete',
-    execute(message, client) {
+    async execute(message, client) {
         if(message.author.bot) return;
 
         // Set message in database as deleted
-        const {connection} = require('../index.js');
-        const sql = `UPDATE message SET deleted = 1 WHERE id = '${message.id}'`;
-        connection.query(sql, function (error, results, fields) {
-            if (error) throw error;
-        });
+        const knex = require("knex")({
+            client: "mysql",
+            connection: {
+                host: process.env.DB_HOST,
+                user: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
+            },
+        })
+        await knex("discord_message").update({ deleted: 1 }).where("id", message.id);
         
-        const logChannel = client.channels.cache.get(process.env.DISCORD_LOG_CHANNEL_ID);
+        // Log message deletion in #logs
+        const logChannel = client.channels.cache.find(channel => channel.name === "logs" && channel.guild.id === message.guild.id);
         logChannel.send(`Message deleted in ${message.channel} by ${message.author}:\n\n${message.content}`);
     },
 };
