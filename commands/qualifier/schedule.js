@@ -64,7 +64,7 @@ module.exports = {
     }
 
     await interaction.reply({
-      content: `Your team has been registered for qualifier lobby ${qualifierLobby.id}!`,
+      content: `Your team has been registered for qualifier lobby ${qualifierLobby.name}!`,
       ephemeral: true,
     });
   },
