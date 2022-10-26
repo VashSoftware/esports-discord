@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'status',
+    name: 'close',
     async execute(interaction) {
         const ticketId = interaction.options.getInteger("ticketid");
 
@@ -13,7 +13,11 @@ module.exports = {
             },
         })
 
-        const ticket = await knex("ticket").where("id", ticketId).first();
-        await interaction.reply({content: `Ticket ${ticketId} is ${ticket.closed ? "closed" : "open"}`, ephemeral: true});
+        if (interaction.member.roles.cache.some(role => role.name === "Moderator")) {
+            await knex("ticket").update({ closed: 1 }).where("id", ticketId);
+            await interaction.reply({content: `Ticket ${ticketId} closed!`, ephemeral: true});
+        } else {
+            await interaction.reply({content: "You do not have permission to close tickets.", ephemeral: true});
+        }
     }
 }
