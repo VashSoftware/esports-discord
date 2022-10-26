@@ -9,7 +9,13 @@ module.exports = {
         console.log(`${message.author.username} (${message.guild.name}, #${message.channel.name}): ${message.content}`);
 
         // Log message to database
-        const {connection} = require('../index.js');
+        const mysql = require('mysql');
+        const connection = mysql.createConnection({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE
+        });
         const sql = `INSERT INTO discord_message (id, author_discord_id, guild_id, channel_id, content) VALUES ('${message.id}', '${message.author.id}', '${message.guild.id}', '${message.channel.id}', '${message.content}')`;
         connection.query(sql, function (error, results, fields) {
             if (error) throw error;
