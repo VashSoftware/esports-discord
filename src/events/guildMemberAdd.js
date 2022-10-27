@@ -7,8 +7,9 @@ module.exports = {
     execute(guildMember, client) {        
         // Log and greeting
         console.log(`${guildMember.user.username} joined server: ${guildMember.guild.name}`);
-
-        const logChannel = client.channels.cache.get(process.env.DISCORD_LOG_CHANNEL_ID);
+        
+        // Log to log channel
+        const logChannel = client.channels.cache.find(channel => channel.name === "logs" && channel.guild.id === guildMember.guild.id);
 
         const embed = new EmbedBuilder()
             .setTitle('Member Joined')

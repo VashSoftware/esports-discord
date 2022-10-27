@@ -7,7 +7,7 @@ module.exports = {
     execute(guildMember, client) {
         console.log(`${guildMember.user.username} left server: ${guildMember.guild.name}`);
         
-        let logChannel = client.channels.cache.get(process.env.DISCORD_LOG_CHANNEL_ID);
+        let logChannel = client.channels.cache.find(channel => channel.name === "logs" && channel.guild.id === guildMember.guild.id);
 
         const embed = new EmbedBuilder()
             .setTitle('Member Left')
