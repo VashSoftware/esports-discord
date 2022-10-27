@@ -3,8 +3,8 @@ const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("stream")
-    .setDescription("Livestream commands")
+    .setName("info")
+    .setDescription("Info commands")
     .addSubcommand((subcommand) =>
       subcommand.setName("bot").setDescription("Gives info about the bot")
     )
