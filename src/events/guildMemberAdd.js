@@ -4,7 +4,8 @@ const updateMemberCountChannel = require('../functions/updateMemberCountChannel'
 
 module.exports = {
     name: 'guildMemberAdd',
-    execute(guildMember, client) {
+    execute(guildMember, client) {        
+        // Log and greeting
         console.log(`${guildMember.user.username} joined server: ${guildMember.guild.name}`);
         
         // Log to log channel
@@ -26,7 +27,11 @@ module.exports = {
 
         const generalChannel = client.channels.cache.get(process.env.DISCORD_GENERAL_CHANNEL_ID);
         generalChannel.send(`${guildMember} has joined the server.`);
-
+        
+        // Update member count channel
         updateMemberCountChannel.execute(client);
+
+        // Assign roles
+        
     },
 };

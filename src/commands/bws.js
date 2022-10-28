@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         const rank = interaction.options.getString('rank');
         const badges = interaction.options.getString('badges');
-        const bwsRank = Math.pow(rank, (Math.pow(0.9937, (Math.pow(badges, 2)))));
+        const bwsRank = Math.floor(Math.pow(rank, (Math.pow(0.9937, (Math.pow(badges, 2))))));
 
         await interaction.reply(`BWS rank: ${bwsRank}`);
     }
