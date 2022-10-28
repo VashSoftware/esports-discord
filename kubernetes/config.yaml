@@ -91,12 +91,6 @@ metadata:
                       'f:valueFrom':
                         .: {}
                         'f:configMapKeyRef': {}
-                    'k:{"name":"DISCORD_GENERAL_CHANNEL_ID"}':
-                      .: {}
-                      'f:name': {}
-                      'f:valueFrom':
-                        .: {}
-                        'f:configMapKeyRef': {}
                     'k:{"name":"DISCORD_GUILD_ID"}':
                       .: {}
                       'f:name': {}
@@ -263,11 +257,6 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: DISCORD_COUNT_CHANNEL_ID
-                  name: discord-bot-config-kym0
-            - name: DISCORD_GENERAL_CHANNEL_ID
-              valueFrom:
-                configMapKeyRef:
-                  key: DISCORD_GENERAL_CHANNEL_ID
                   name: discord-bot-config-kym0
             - name: DISCORD_GUILD_ID
               valueFrom:
