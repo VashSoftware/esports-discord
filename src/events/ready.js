@@ -9,6 +9,9 @@ module.exports = {
 
         client.user.setActivity("osu!", { type: ActivityType.Competing });
 
-        updateMemberCountChannel.execute(client);
+        const guilds = client.guilds.cache;
+        guilds.forEach(guild => {
+            updateMemberCountChannel.execute(client, guild);
+        });
     },
 };

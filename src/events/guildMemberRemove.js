@@ -23,6 +23,6 @@ module.exports = {
             .setTimestamp();
         logChannel.send({ embeds: [embed] });
 
-        updateMemberCountChannel.execute(client);
+        updateMemberCountChannel.execute(client, guildMember.guild);
     },
 };

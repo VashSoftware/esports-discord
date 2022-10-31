@@ -29,7 +29,7 @@ module.exports = {
         generalChannel.send(`${guildMember} has joined the server.`);
         
         // Update member count channel
-        updateMemberCountChannel.execute(client);
+        updateMemberCountChannel.execute(client, guildMember.guild);
 
         // Assign roles
         
