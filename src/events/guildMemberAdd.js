@@ -25,8 +25,8 @@ module.exports = {
             .setTimestamp();
         logChannel.send({ embeds: [embed] });
 
-        const generalChannel = client.channels.cache.get(process.env.DISCORD_GENERAL_CHANNEL_ID);
-        generalChannel.send(`${guildMember} has joined the server.`);
+        const generalChannel = client.channels.cache.find(channel => channel.name === "general" && channel.guild.id === guildMember.guild.id);
+        generalChannel.send(`${guildMember.displayName} has joined the server.`);
         
         // Update member count channel
         updateMemberCountChannel.execute(client, guildMember.guild);
