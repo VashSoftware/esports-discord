@@ -4,8 +4,8 @@ import { readdirSync } from "fs";
 import { createConnection } from 'mysql';
 import { join } from "path";
 import { fileURLToPath } from "url";
-import config from "./config.js";
-import { execute } from "./functions/deployCommands.js";
+import config from "./config.mjs";
+import { execute } from "./functions/deployCommands.mjs";
 const { BanchoClient } = banchopkg;
 
 const createDiscordClient = () => {
@@ -29,7 +29,7 @@ const loadDiscordCommands = (discordClient) => {
   discordClient.commands = new Collection();
   const commandsPath = fileURLToPath(new URL("./commands", import.meta.url));
   const commandFiles = readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js"));
+    .filter((file) => file.endsWith(".js") || file.endsWith(".mjs"));
 
   for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
@@ -44,7 +44,7 @@ const loadDiscordCommands = (discordClient) => {
 const loadDiscordEvents = (discordClient) => {
   const eventsPath = fileURLToPath(new URL("./events", import.meta.url));
   const eventFiles = readdirSync(eventsPath)
-    .filter((file) => file.endsWith(".js"));
+    .filter((file) => file.endsWith(".js") );
     
   let eventCount = 0;
   for (const file of eventFiles) {

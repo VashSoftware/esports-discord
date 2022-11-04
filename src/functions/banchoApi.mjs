@@ -1,7 +1,6 @@
-require("dotenv").config();
-
-const Banchojs = require("bancho.js");
-const client = new Banchojs.BanchoClient({ username: "Stan", password: process.env.OSU_IRC_PASSWORD });
+import config from "../config.mjs";
+import { BanchoClient } from "bancho.js";
+const client = new BanchoClient({ username: "Stan", password: config.osu.irc_password });
 
 client.connect().then(async () => {
     console.log("Connected to Bancho!");
