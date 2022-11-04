@@ -57,9 +57,9 @@ const production = {
   db: {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT) || 27017,
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'password',
-    name: process.env.DB_DATABASE || 'db'
+    user: process.env.DB_USER || 'ces-discord-bot',
+    password: process.env.DB_PASSWORD || 'say-osu!',
+    name: process.env.DB_DATABASE || 'ces'
   }
 };
 

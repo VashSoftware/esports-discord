@@ -25,27 +25,23 @@ const createDiscordClient = () => {
   });
 }
 
-const loadDiscordCommands = (client) => {
-  client.commands = new Collection();
+const loadDiscordCommands = (discordClient) => {
+  discordClient.commands = new Collection();
   const commandsPath = fileURLToPath(new URL("./commands", import.meta.url));
-  console.log(commandsPath);
   const commandFiles = readdirSync(commandsPath)
     .filter((file) => file.endsWith(".js"));
 
   for (const file of commandFiles) {
     const filePath = join(commandsPath, file);
 
-    import(filePath).then((command) => {
-      // Set a new item in the Collection
-      // With the key as the command name and the value as the exported module
-      client.commands.set(command.data.name, command);
-    });
+    import(filePath).then((command) => 
+      discordClient.commands.set(command.data.name, command));
   }
 
-  return client;
+  return discordClient;
 }
 
-const loadDiscordEvents = (client) => {
+const loadDiscordEvents = (discordClient) => {
   const eventsPath = fileURLToPath(new URL("./events", import.meta.url));
   const eventFiles = readdirSync(eventsPath)
     .filter((file) => file.endsWith(".js"));
@@ -55,16 +51,16 @@ const loadDiscordEvents = (client) => {
     const filePath = join(eventsPath, file);
     import(filePath).then((event) => {
       if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, client));
+        discordClient.once(event.name, (...args) => event.execute(...args, discordClient));
       } else {
-        client.on(event.name, (...args) => event.execute(...args, client));
+        discordClient.on(event.name, (...args) => event.execute(...args, discordClient));
       }
       eventCount++;
     });
   }
 
   console.log(`Loaded ${eventCount} events.`);
-  return client;
+  return discordClient;
 }
 
 const conenctToDatabase = () => {
@@ -111,10 +107,4 @@ const main = () => {
   return { discordClient, connection, banchodiscordClient };
 }
 
-
-const { connection, banchodiscordClient } = main();
-
-export default {
-  connection,
-  banchodiscordClient
-}
+main();
