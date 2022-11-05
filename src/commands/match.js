@@ -1,35 +1,23 @@
-require("dotenv").config();
-const { SlashCommandBuilder } = require("discord.js");
+import { SlashCommandBuilder } from "discord.js";
+import { readdirSync } from "fs";
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("match")
-    .setDescription("Match command")
-    .addSubcommand((subcommand) =>
-      subcommand.setName("info").setDescription("Shows info about a match")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("list").setDescription("List all matches")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("start").setDescription("Start a match")
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("reschedule").setDescription("Reschedule a match")
-    ),
-  execute(interaction) {
-    const fs = require("fs");
+export const data = new SlashCommandBuilder()
+  .setName("match")
+  .setDescription("Match command")
+  .addSubcommand((subcommand) => subcommand.setName("info").setDescription("Shows info about a match"))
+  .addSubcommand((subcommand) => subcommand.setName("list").setDescription("List all matches"))
+  .addSubcommand((subcommand) => subcommand.setName("start").setDescription("Start a match"))
+  .addSubcommand((subcommand) => subcommand.setName("reschedule").setDescription("Reschedule a match"));
 
-    const matchCommands = fs
-      .readdirSync("./src/commands/match")
-      .filter((file) => file.endsWith(".js"));
+export function execute(interaction) {
+  const matchCommands = readdirSync("./src/commands/match").filter((file) => file.endsWith(".js"));
 
-    for (const file of matchCommands) {
-      const command = require(`./match/${file}`);
-      if (command.name === interaction.options.getSubcommand()) {
+  matchCommands.every((file) => {
+    import(file).then((command) => {
+      if (command.data.name === interaction.options.getSubcommand()) {
         command.execute(interaction);
-        break;
+        return false;
       }
-    }
-  },
-};
+    });
+  });
+}

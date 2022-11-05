@@ -8,7 +8,7 @@ const dev = {
     api_key: process.env.DEV_CHALLONGE_API_KEY,
     subdomain: process.env.DEV_CHALLONGE_SUBDOMAIN,
   },
-  osu : {
+  osu: {
     irc_username: process.env.DEV_OSU_IRC_USERNAME,
     irc_password: process.env.DEV_OSU_IRC_PASSWORD,
     api_v1_key: process.env.DEV_OSU_API_V1_KEY,
@@ -29,8 +29,8 @@ const dev = {
     port: parseInt(process.env.DEV_DB_PORT) || 27017,
     user: process.env.DEV_DB_USER || 'dev',
     password: process.env.DEV_DB_PASSWORD || 'password',
-    name: process.env.DEV_DB_DATABASE || 'db'
-  }
+    name: process.env.DEV_DB_DATABASE || 'db',
+  },
 };
 
 const production = {
@@ -38,7 +38,7 @@ const production = {
     api_key: process.env.CHALLONGE_API_KEY,
     subdomain: process.env.CHALLONGE_SUBDOMAIN,
   },
-  osu : {
+  osu: {
     irc_username: process.env.OSU_IRC_USERNAME,
     irc_password: process.env.OSU_IRC_PASSWORD,
     api_v1_key: process.env.OSU_API_V1_KEY,
@@ -59,13 +59,13 @@ const production = {
     port: parseInt(process.env.DB_PORT) || 27017,
     user: process.env.DB_USER || 'ces-discord-bot',
     password: process.env.DB_PASSWORD || 'say-osu!',
-    name: process.env.DB_DATABASE || 'ces'
-  }
+    database: process.env.DB_DATABASE || 'ces',
+  },
 };
 
 const config = {
   dev,
-  production
+  production,
 };
 
 export default config[env];

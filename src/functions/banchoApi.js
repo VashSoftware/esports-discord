@@ -1,4 +1,4 @@
-import config from "../config.mjs";
+import config from "../config.js";
 import { BanchoClient } from "bancho.js";
 const client = new BanchoClient({ username: "Stan", password: config.osu.irc_password });
 

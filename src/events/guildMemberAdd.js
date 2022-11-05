@@ -1,37 +1,33 @@
-require("dotenv").config();
-const { EmbedBuilder } = require("discord.js");
-const updateMemberCountChannel = require('../functions/updateMemberCountChannel');
+import { EmbedBuilder } from "discord.js";
+import config from "../config.js";
+import { execute as _execute } from '../functions/updateMemberCountChannel.js';
 
-module.exports = {
-    name: 'guildMemberAdd',
-    execute(guildMember, client) {        
-        // Log and greeting
-        console.log(`${guildMember.user.username} joined server: ${guildMember.guild.name}`);
-        
-        // Log to log channel
-        const logChannel = client.channels.cache.find(channel => channel.name === "logs" && channel.guild.id === guildMember.guild.id);
+export const name = 'guildMemberAdd';
+export function execute(guildMember, client) {
+  // Log and greeting
+  console.log(`${guildMember.user.username} joined server: ${guildMember.guild.name}`);
 
-        const embed = new EmbedBuilder()
-            .setTitle('Member Joined')
-            .setColor(0x00FF00)
-            .setThumbnail(guildMember.user.avatarURL())
-            .addFields(
-                { name: 'User', value: guildMember.user.username },
-                { name: 'User ID', value: guildMember.user.id },
-                { name: 'Joined At', value: guildMember.joinedAt.toUTCString() },
-                { name: 'Account Created At', value: guildMember.user.createdAt.toUTCString() },
-                { name: 'Member Count', value: guildMember.guild.memberCount.toString() }
-            )
-            .setTimestamp();
-        logChannel.send({ embeds: [embed] });
+  // Log to log channel
+  const logChannel = client.channels.cache.find(channel => channel.name === "logs" && channel.guild.id === guildMember.guild.id);
 
-        const generalChannel = client.channels.cache.get(process.env.DISCORD_GENERAL_CHANNEL_ID);
-        generalChannel.send(`${guildMember} has joined the server.`);
-        
-        // Update member count channel
-        updateMemberCountChannel.execute(client);
+  const embed = new EmbedBuilder()
+    .setTitle('Member Joined')
+    .setColor(65280)
+    .setThumbnail(guildMember.user.avatarURL())
+    .addFields(
+      { name: 'User', value: guildMember.user.username },
+      { name: 'User ID', value: guildMember.user.id },
+      { name: 'Joined At', value: guildMember.joinedAt.toUTCString() },
+      { name: 'Account Created At', value: guildMember.user.createdAt.toUTCString() },
+      { name: 'Member Count', value: guildMember.guild.memberCount.toString() }
+    )
+    .setTimestamp();
+  logChannel.send({ embeds: [embed] });
 
-        // Assign roles
-        
-    },
-};
+  const generalChannel = client.channels.cache.get(config.discord.general_channel_id);
+  generalChannel.send(`${guildMember} has joined the server.`);
+
+  // Update member count channel
+  _execute(client);
+
+}

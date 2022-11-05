@@ -1,12 +1,8 @@
-import banchopkg from "bancho.js";
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { readdirSync } from "fs";
-import { createConnection } from 'mysql';
 import { join } from "path";
 import { fileURLToPath } from "url";
-import config from "./config.mjs";
-import { execute } from "./functions/deployCommands.mjs";
-const { BanchoClient } = banchopkg;
+import config from "./config.js";
 
 const createDiscordClient = () => {
   return new Client({
@@ -55,56 +51,22 @@ const loadDiscordEvents = (discordClient) => {
       } else {
         discordClient.on(event.name, (...args) => event.execute(...args, discordClient));
       }
-      eventCount++;
     });
+    eventCount++;
   }
 
   console.log(`Loaded ${eventCount} events.`);
   return discordClient;
 }
 
-const conenctToDatabase = () => {
-  const connection = createConnection({
-    host: config.db.host,
-    user: config.db.user,
-    password: config.db.password,
-    database: config.db.database
-  });
-
-  connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to database!');
-  });
-
-  return connection;
-}
-
-const connectToBancho = () => {
-  const banchoConnection = new BanchoClient({
-    username: config.osu.irc_username,
-    password: config.osu.irc_password,
-  });
-
-  banchoConnection.connect().then(() => {
-    console.log("Connected to Bancho!");
-  }).catch(console.error);
-
-  return banchoConnection;
-}
-
 const main = () => {
   console.log("Starting bot...");
   let discordClient = createDiscordClient();
-  const connection = conenctToDatabase();
-  const banchodiscordClient = connectToBancho();
 
   discordClient = loadDiscordCommands(discordClient);
-  execute();
   discordClient = loadDiscordEvents(discordClient);
 
   discordClient.login(config.discord.token);
-
-  return { discordClient, connection, banchodiscordClient };
 }
 
 main();

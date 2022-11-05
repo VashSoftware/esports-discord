@@ -2,7 +2,7 @@ import { REST, Routes } from 'discord.js';
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import config from '../config.mjs';
+import config from '../config.js';
 
 export const name = 'deployCommands';
 export const description = 'Deploy slash commands';
