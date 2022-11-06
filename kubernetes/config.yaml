@@ -1,0 +1,382 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    autopilot.gke.io/resource-adjustment: >-
+      {"input":{"containers":[{"name":"discord-bot-sha256-1"}]},"output":{"containers":[{"limits":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"discord-bot-sha256-1"}]},"modified":true}
+  labels:
+    app: discord-bot
+  managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:replicas': {}
+      manager: vpa-recommender
+      operation: Update
+      subresource: scale
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:labels':
+                .: {}
+                'f:app': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"discord-bot-sha256-1"}':
+                  .: {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"CHALLONGE_API_KEY"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"CHALLONGE_SUBDOMAIN"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DB_DATABASE"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DB_HOST"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DB_PASSWORD"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DB_USER"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_CLIENT_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_COUNT_CHANNEL_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_GUILD_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_MEMBER_COUNT_CHANNEL_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_STAFF_NOTIFY_CHANNEL_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"DISCORD_TOKEN"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"OSU_API_KEY"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"OSU_CLIENT_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"OSU_CLIENT_SECRET"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"OSU_IRC_PASSWORD"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"OSU_IRC_USERNAME"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"SPREADSHEET_ID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                  'f:image': {}
+                  'f:imagePullPolicy': {}
+                  'f:name': {}
+                  'f:resources': {}
+                  'f:terminationMessagePath': {}
+                  'f:terminationMessagePolicy': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+      manager: GoogleCloudConsole
+      operation: Update
+      time: '2022-10-28T14:21:30Z'
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      manager: kube-controller-manager
+      operation: Update
+      subresource: status
+      time: '2022-10-28T14:25:41Z'
+  name: discord-bot
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-bot
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: discord-bot
+    spec:
+      containers:
+        - env:
+            - name: CHALLONGE_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: CHALLONGE_API_KEY
+                  name: discord-bot-config-kym0
+            - name: CHALLONGE_SUBDOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: CHALLONGE_SUBDOMAIN
+                  name: discord-bot-config-kym0
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_DATABASE
+                  name: discord-bot-config-kym0
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: discord-bot-config-kym0
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PASSWORD
+                  name: discord-bot-config-kym0
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_USER
+                  name: discord-bot-config-kym0
+            - name: DISCORD_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_CLIENT_ID
+                  name: discord-bot-config-kym0
+            - name: DISCORD_COUNT_CHANNEL_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_COUNT_CHANNEL_ID
+                  name: discord-bot-config-kym0
+            - name: DISCORD_GUILD_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_GUILD_ID
+                  name: discord-bot-config-kym0
+            - name: DISCORD_MEMBER_COUNT_CHANNEL_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_MEMBER_COUNT_CHANNEL_ID
+                  name: discord-bot-config-kym0
+            - name: DISCORD_STAFF_NOTIFY_CHANNEL_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_STAFF_NOTIFY_CHANNEL_ID
+                  name: discord-bot-config-kym0
+            - name: DISCORD_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: DISCORD_TOKEN
+                  name: discord-bot-config-kym0
+            - name: OSU_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: OSU_API_KEY
+                  name: discord-bot-config-kym0
+            - name: OSU_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OSU_CLIENT_ID
+                  name: discord-bot-config-kym0
+            - name: OSU_CLIENT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: OSU_CLIENT_SECRET
+                  name: discord-bot-config-kym0
+            - name: OSU_IRC_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: OSU_IRC_PASSWORD
+                  name: discord-bot-config-kym0
+            - name: OSU_IRC_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: OSU_IRC_USERNAME
+                  name: discord-bot-config-kym0
+            - name: SPREADSHEET_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: SPREADSHEET_ID
+                  name: discord-bot-config-kym0
+          image: >-
+            gcr.io/ces-gaming/github.com/competitive-electronic-sports/discord-bot
+          imagePullPolicy: IfNotPresent
+          name: discord-bot-sha256-1
+          resources:
+            limits:
+              cpu: 500m
+              ephemeral-storage: 1Gi
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 1Gi
+              memory: 2Gi
+          securityContext:
+            capabilities:
+              drop:
+                - NET_RAW
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: discord-bot
+  managedFields:
+    - apiVersion: autoscaling/v2beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:maxReplicas': {}
+          'f:metrics': {}
+          'f:minReplicas': {}
+          'f:scaleTargetRef':
+            'f:apiVersion': {}
+            'f:kind': {}
+            'f:name': {}
+      manager: GoogleCloudConsole
+      operation: Update
+      time: '2022-10-28T14:21:30Z'
+    - apiVersion: autoscaling/v2beta2
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:conditions': {}
+          'f:currentMetrics': {}
+          'f:currentReplicas': {}
+          'f:desiredReplicas': {}
+          'f:lastScaleTime': {}
+      manager: vpa-recommender
+      operation: Update
+      subresource: status
+      time: '2022-10-28T14:27:16Z'
+  name: discord-bot-hpa-dl3w
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 80
+      type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: discord-bot

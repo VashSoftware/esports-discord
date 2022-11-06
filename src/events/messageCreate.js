@@ -1,8 +1,5 @@
-import config from '../config.js';
-import { createConnection } from 'mysql';
-
 export const name = 'messageCreate';
-export function execute(message, client) {
+export async function execute(message, client) {
   if (message.author.bot)
     return;
 
@@ -10,20 +7,29 @@ export function execute(message, client) {
   console.log(`${message.author.username} (${message.guild.name}, #${message.channel.name}): ${message.content}`);
 
   // Log message to database
-  const connection = createConnection({
-    host: config.db.host,
-    user: config.db.user,
-    password: config.db.password,
-    database: config.db.database,
-  });
-  const sql = `INSERT INTO discord_message (id, author_discord_id, guild_id, channel_id, content) VALUES ('${message.id}', '${message.author.id}', '${message.guild.id}', '${message.channel.id}', '${message.content}')`;
-  connection.query(sql, function (error, results, fields) {
-    if (error)
-      throw error;
-  });
+  const knex = require("knex")({
+    client: "mysql",
+    connection: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+    },
+  })
+  try {
+    await knex("discord_message").insert({
+      id: message.id,
+      author_discord_id: message.author.id,
+      guild_id: message.guild.id,
+      channel_id: message.channel.id,
+      content: message.content
+    });
+  } catch (err) {
+    console.log(err);
+  }
 
   // Counting channel automod
-  if (message.channel.id === config.discord.count_channel_id) {
+  if (message.channel.id === process.env.DISCORD_COUNT_CHANNEL_ID) {
     message.channel.messages.fetch({ limit: 2 }).then(messages => {
       if (Number.parseInt(messages.at(1).content) + 1 !== Number.parseInt(messages.at(0).content)) {
         message.delete();

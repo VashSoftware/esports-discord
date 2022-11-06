@@ -1,6 +1,4 @@
 import { EmbedBuilder } from "discord.js";
-import config from "../config.js";
-import { execute as _execute } from '../functions/updateMemberCountChannel.js';
 
 export const name = 'guildMemberAdd';
 export function execute(guildMember, client) {
@@ -22,12 +20,14 @@ export function execute(guildMember, client) {
       { name: 'Member Count', value: guildMember.guild.memberCount.toString() }
     )
     .setTimestamp();
+  
   logChannel.send({ embeds: [embed] });
-
-  const generalChannel = client.channels.cache.get(config.discord.general_channel_id);
-  generalChannel.send(`${guildMember} has joined the server.`);
-
+  const generalChannel = client.channels.cache.find(channel => channel.name === "general" && channel.guild.id === guildMember.guild.id);
+  generalChannel.send(`${guildMember.displayName} has joined the server.`);
+        
   // Update member count channel
-  _execute(client);
+  updateMemberCountChannel.execute(client, guildMember.guild);
 
+  // Assign roles
+        
 }

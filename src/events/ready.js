@@ -8,5 +8,8 @@ export function execute(client) {
 
   client.user.setActivity("osu!", { type: ActivityType.Competing });
 
-  _execute(client);
+  const guilds = client.guilds.cache;
+  guilds.forEach(guild => {
+    _execute(client, guild);
+  });
 }
