@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A discord bot for the CES Gaming Discord server",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon"
+    "dev": "NODE_ENV=dev nodemon"
   },
   "dependencies": {
     "@discordjs/rest": "^1.2.0",

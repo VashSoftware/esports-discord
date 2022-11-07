@@ -1,9 +1,9 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Shows a list of all commands.'),
-    async execute (interaction) {
-    }
+export const data = new SlashCommandBuilder()
+  .setName('help')
+  .setDescription('Shows a list of all commands.');
+
+export async function execute(interaction) {
+  // TODO: Implement
 }

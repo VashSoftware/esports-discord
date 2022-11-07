@@ -1,9 +1,9 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('osutop')
-        .setDescription('Get the top plays of a user'),
-    async execute (interaction) {
-    }
+export const data = new SlashCommandBuilder()
+  .setName('osutop')
+  .setDescription('Get the top plays of a user');
+
+export async function execute(interaction) {
+  // TODO: Implement
 }

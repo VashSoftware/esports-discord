@@ -8,14 +8,14 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({ version: "v4", auth: auth });
 
 async function getSheet(spreadsheetId, range) {
-  return await sheets.spreadsheets.values.get({
+  return sheets.spreadsheets.values.get({
     spreadsheetId,
     range,
   });
 }
 
 async function updateSheet(spreadsheetId, range, values) {
-  return await sheets.spreadsheets.values.update({
+  return sheets.spreadsheets.values.update({
     spreadsheetId,
     range,
     valueInputOption: "USER_ENTERED",
@@ -28,10 +28,10 @@ async function updateSheet(spreadsheetId, range, values) {
 getSheet(process.env.SPREADSHEET_ID, `Bracket Schedules (RO64)!C5:M171`).then(
   (values) => {
     values.data.values.forEach(element => {
-        if(element[0] === "100") {
-            console.log(element[element.length - 4]);
-            console.log(element[element.length - 1]);
-        }
+      if (element[0] === "100") {
+        console.log(element[element.length - 4]);
+        console.log(element[element.length - 1]);
+      }
     });
   }
 );

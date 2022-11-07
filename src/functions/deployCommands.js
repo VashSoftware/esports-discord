@@ -1,27 +1,27 @@
-require("dotenv").config();
+import { REST, Routes } from 'discord.js';
+import { readdirSync } from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+import config from '../config.js';
 
-module.exports = {
-	name: 'deployCommands',
-	description: 'Deploy slash commands',
-	execute() {
-		const fs = require('fs');
-		const path = require('path');
-		const { REST, Routes, SlashCommandBuilder, ModalBuilder } = require('discord.js');
+export const name = 'deployCommands';
+export const description = 'Deploy slash commands';
 
-		const commands = [];
-		const commandsPath = path.join(__dirname, '../commands');
-		const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+export function execute() {
+  const commands = [];
+  const commandsPath = fileURLToPath(new URL("../commands", import.meta.url));
+  const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-		for (const file of commandFiles) {
-			const filePath = path.join(commandsPath, file);
-			const command = require(filePath);
-			commands.push(command.data.toJSON());
-		}
+  for (const file of commandFiles) {
+    const filePath = join(commandsPath, file);
+    import(filePath).then(command => {
+      commands.push(command.data.toJSON());
+    });
+  }
 
-		const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+  const rest = new REST({ version: '10' }).setToken(config.discord.token);
 
-		rest.put(Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID, process.env.DISCORD_GUILD_ID), { body: commands })
-			.then(data => console.log(`Loaded ${data.length} commands.`))
-			.catch(console.error);
-	},
-};
+  rest.put(Routes.applicationGuildCommands(config.discord.client_id, config.discord.guild_id), { body: commands })
+    .then(data => console.log(`Loaded ${data.length} commands.`))
+    .catch(console.error);
+}
