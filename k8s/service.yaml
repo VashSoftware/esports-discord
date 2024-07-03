@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: osu-server-service
+  name: discord-service
   namespace: default
 spec:
   selector:
-    app: osu-server
+    app: discord
   type: LoadBalancer
   sessionAffinity: ClientIP
   sessionAffinityConfig:

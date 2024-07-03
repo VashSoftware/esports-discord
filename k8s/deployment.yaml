@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  osu-server-deployment
+  name:  discord-deployment
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: osu-server
+      app: discord
   replicas: 1
   strategy:
     rollingUpdate:
@@ -16,11 +16,11 @@ spec:
   template:
     metadata:
       labels:
-        app:  osu-server
+        app:  discord
     spec:
       containers:
-      - name:  osu-server
-        image:  europe-docker.pkg.dev/vash-esports/osu-server/osu-server
+      - name:  discord
+        image:  europe-docker.pkg.dev/vash-esports/discord/discord
         imagePullPolicy: Always
         resources:
           requests:
@@ -50,29 +50,29 @@ spec:
         - name: SUPABASE_URL
           valueFrom:
             configMapKeyRef:
-              name: osu-server-config
+              name: discord-config
               key: SUPABASE_URL
         - name: SUPABASE_ANON_KEY
           valueFrom:
             configMapKeyRef:
-              name: osu-server-config
+              name: discord-config
               key: SUPABASE_ANON_KEY
-        - name: OSU_USERNAME
+        - name: DISCORD_CLIENT_ID
           valueFrom:
             configMapKeyRef:
-              name: osu-server-config
-              key: OSU_USERNAME
-        - name: OSU_API_KEY
+              name: discord-config
+              key: DISCORD_CLIENT_ID
+        - name: DISCORD_GUILD_ID
+          valueFrom:
+            configMapKeyRef:
+              name: discord-config
+              key: DISCORD_GUILD_ID
+        - name: DISCORD_TOKEN
           valueFrom:
             secretKeyRef:
-              name: osu-server-secret
-              key: OSU_API_KEY
-        - name: OSU_IRC_KEY
-          valueFrom:
-            secretKeyRef:
-              name: osu-server-secret
-              key: OSU_IRC_KEY
+              name: discord-secret
+              key: DISCORD_TOKEN
         ports:
         - containerPort:  3000
-          name:  osu-server
+          name:  discord
       restartPolicy: Always
