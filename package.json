@@ -9,7 +9,6 @@
   "dependencies": {
     "@discordjs/rest": "^2.3.0",
     "axios": "^1.7.2",
-    "bancho.js": "^0.11.6",
     "discord.js": "^14.15.3",
     "osu-api-extended": "^2.8.51"
   },
