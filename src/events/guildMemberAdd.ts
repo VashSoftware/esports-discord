@@ -32,10 +32,5 @@ export function onGuildMemberAdd(client) {
       )
       .setTimestamp();
     logChannel.send({ embeds: [embed] });
-
-    const generalChannel = client.channels.cache.get(
-      process.env.DISCORD_GENERAL_CHANNEL_ID
-    );
-    generalChannel.send(`${guildMember.displayName} has joined the server.`);
   });
 }

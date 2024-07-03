@@ -14,3 +14,5 @@ target
 .idea
 .fleet
 .vscode
+
+k8s/secret.yaml
