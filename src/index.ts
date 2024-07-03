@@ -4,41 +4,28 @@ import { deployCommands } from "./utils/deployCommands";
 import Banchojs from "bancho.js";
 import { loadEvents } from "./events";
 
-const createDiscordClient = () => {
-  return new Client({
-    intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.GuildMessageReactions,
-      GatewayIntentBits.MessageContent,
-      GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.DirectMessages,
-      GatewayIntentBits.DirectMessageReactions,
-      GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.GuildBans,
-      GatewayIntentBits.GuildScheduledEvents,
-    ],
-  });
-};
+const banchoConnection = new Banchojs.BanchoClient({
+  username: process.env.OSU_IRC_USERNAME!,
+  password: process.env.OSU_IRC_KEY!,
+});
 
-const connectToBancho = () => {
-  const banchoConnection = new Banchojs.BanchoClient({
-    username: process.env.OSU_IRC_USERNAME!,
-    password: process.env.OSU_IRC_KEY!,
-  });
+await banchoConnection.connect();
+console.log("Connected to Bancho!");
 
-  banchoConnection
-    .connect()
-    .then(() => {
-      console.log("Connected to Bancho!");
-    })
-    .catch(console.error);
-
-  return banchoConnection;
-};
-
-const discordClient = createDiscordClient();
-const banchodiscordClient = connectToBancho();
+const discordClient = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessageReactions,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildBans,
+    GatewayIntentBits.GuildScheduledEvents,
+  ],
+});
 
 // deployCommands();
 
