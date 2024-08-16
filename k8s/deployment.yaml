@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name:  discord
-        image:  europe-docker.pkg.dev/vash-esports/discord/discord
+        image:  europe-docker.pkg.dev/vash-esports/discord/discord:1.0
         imagePullPolicy: Always
         resources:
           requests:

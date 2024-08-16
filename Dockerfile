@@ -19,7 +19,7 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 # [optional] Tests & build
-# ENV NODE_ENV=production
+ENV NODE_ENV=production
 # RUN bun test
 # RUN bun run build
 
@@ -30,5 +30,4 @@ COPY . .
 
 # Run the app
 USER bun
-EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "run", "src/index.ts" ]
