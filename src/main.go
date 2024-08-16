@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 
@@ -29,6 +31,11 @@ func main() {
 		data := i.ApplicationCommandData()
 		switch data.Name {
 		case "queue":
+			joinQueue()
+			if err != nil {
+				log.Fatal(err)
+			}
+
 			err := s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
 				Data: &discordgo.InteractionResponseData{
@@ -47,12 +54,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer discord.Close()
 
 	sigch := make(chan os.Signal, 1)
 	signal.Notify(sigch, os.Interrupt)
 	<-sigch
-
-	discord.Close()
 }
 
 func registerCommands(discord *discordgo.Session) {
@@ -68,4 +74,28 @@ func registerCommands(discord *discordgo.Session) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func joinQueue() {
+	client := http.Client{}
+
+	req, err := http.NewRequest(
+		"POST",
+		os.Getenv("SUPABASE_URL")+"/rest/v1/quick_queue",
+		bytes.NewBuffer([]byte(`{"team_id": 2, "position": 1}`)))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req.Header.Set("Authorization", "Bearer "+os.Getenv("SUPABASE_SERVICE_KEY"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
 }
